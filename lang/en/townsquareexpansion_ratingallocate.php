@@ -23,7 +23,7 @@
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 $string['pluginname'] = 'Townsquare subplugin for mod_ratingallocate';
-$string['pluginname'] = 'Ratingallocate support for townsquare block';
+$string['plugintitle'] = 'Ratingallocate support for townsquare block';
 $string['pluginnameadding'] = "Adding a Ratingallocate support subplugin";
 $string['pluginnameediting'] = "Editing a Ratingallocate support subplugin";
 $string['pluginnamesummary'] = "This subplugin allows the townsquare block to show events from ratingallocate.";
