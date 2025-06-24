@@ -72,9 +72,9 @@ class ratingallocate implements townsquaresupportinterface {
     /**
      * Builds the sql query to get all ratingallocate events from the database.
      *
-     * @param $courses
-     * @param $timestart
-     * @param $timeend
+     * @param array $courses
+     * @param int $timestart
+     * @param int $timeend
      * @return array
      */
     private static function get_events_from_db($courses, $timestart, $timeend): array {
