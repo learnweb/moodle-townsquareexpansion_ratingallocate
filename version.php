@@ -22,14 +22,14 @@
  * @license      https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined ('MOODLE_INTERNAL') || die();
+defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2024080100;
-$plugin->requires = 2022112819; // Require Moodle 4.1.
-$plugin->supported = [401, 500];
+$plugin->version = 2025120100;
+$plugin->requires = 2024100700.00; // Require Moodle 4.5.
+$plugin->supported = [405, 501];
 $plugin->component = 'townsquareexpansion_ratingallocate';
 $plugin->maturity = MATURITY_STABLE;
-$plugin->release = 'v5.0-r1';
+$plugin->release = 'v5.1-r1';
 $plugin->dependencies = [
     'local_townsquaresupport' => ANY_VERSION,
     'mod_ratingallocate' => ANY_VERSION,
