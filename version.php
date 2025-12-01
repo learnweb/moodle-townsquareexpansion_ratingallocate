@@ -26,7 +26,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $plugin->version = 2025120100;
 $plugin->requires = 2024100700.00; // Require Moodle 4.5.
-$plugin->supported = [405, 500];
+$plugin->supported = [405, 501];
 $plugin->component = 'townsquareexpansion_ratingallocate';
 $plugin->maturity = MATURITY_STABLE;
 $plugin->release = 'v5.1-r1';
