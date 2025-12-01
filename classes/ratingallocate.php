@@ -25,6 +25,9 @@ namespace townsquareexpansion_ratingallocate;
 
 defined('MOODLE_INTERNAL') || die();
 
+use coding_exception;
+use core\exception\moodle_exception;
+use dml_exception;
 use local_townsquaresupport\townsquaresupportinterface;
 
 global $CFG;
@@ -38,10 +41,10 @@ require_once($CFG->dirroot . '/blocks/townsquare/lib.php');
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class ratingallocate implements townsquaresupportinterface {
-
     /**
      * Function from the interface.
      * @return array
+     * @throws dml_exception|moodle_exception
      */
     public static function get_events(): array {
         global $DB;
@@ -51,17 +54,19 @@ class ratingallocate implements townsquaresupportinterface {
         }
 
         // Get important parameters directly from townsquare.
-        $courses = townsquare_get_courses();
-        $timestart = townsquare_get_timestart();
-        $timeend = townsquare_get_timeend();
+        $courses = block_townsquare_get_courses();
+        $timestart = block_townsquare_get_timestart();
+        $timeend = block_townsquare_get_timeend();
 
         // Get all ratingallocate events.
         $ratingallocateevents = self::get_events_from_db($courses, $timestart, $timeend);
 
         // Filter out events that the user should not see.
         foreach ($ratingallocateevents as $key => $event) {
-            if (townsquare_filter_availability($event) ||
-                ($event->eventtype == "expectcompletionon" && townsquare_filter_activitycompletions($event))) {
+            if (
+                townsquare_filter_availability($event) ||
+                ($event->eventtype == "expectcompletionon" && townsquare_filter_activitycompletions($event))
+            ) {
                 unset($ratingallocateevents[$key]);
             }
         }
@@ -76,12 +81,13 @@ class ratingallocate implements townsquaresupportinterface {
      * @param int $timestart
      * @param int $timeend
      * @return array
+     * @throws dml_exception|coding_exception
      */
-    private static function get_events_from_db($courses, $timestart, $timeend): array {
+    private static function get_events_from_db(array $courses, int $timestart, int $timeend): array {
         global $DB;
 
         // Prepare the courses parameter for sql query.
-        list($insqlcourses, $inparamscourses) = $DB->get_in_or_equal($courses, SQL_PARAMS_NAMED);
+        [$insqlcourses, $inparamscourses] = $DB->get_in_or_equal($courses, SQL_PARAMS_NAMED);
         $params = ['timestart' => $timestart, 'timeduration' => $timestart, 'timeend' => $timeend, 'courses' => $inparamscourses]
                   + $inparamscourses;
 
@@ -98,7 +104,7 @@ class ratingallocate implements townsquaresupportinterface {
                       AND e.courseid $insqlcourses
                       AND e.modulename = 'ratingallocate'
                       AND m.visible = 1
-                      AND (e.name NOT LIKE '" .'0'. "' AND e.eventtype NOT LIKE '" .'0'. "' )
+                      AND (e.name NOT LIKE '" . '0' . "' AND e.eventtype NOT LIKE '" . '0' . "' )
                       AND (e.instance <> 0 AND e.visible = 1)
                 ORDER BY e.timestart DESC";
 
