@@ -9,7 +9,7 @@ The townsquare block is a Moodle block plugin that shows notifications from diff
 supports Moodle core plugins, this subplugin extends the functionality by managing notifications from the ratingallocate activity
 and making them available for the townsquare block.
 
-Documentation of the ratingallocate activity plugin: https://github.com/learnweb/moodle-mod_moodleoverflow
+Documentation of the [ratingallocate activity plugin](https://github.com/learnweb/moodle-mod_ratingallocate)
 
 ## Important information:
 To install this subplugin, your Moodle system needs to have the townsquare block and the townsquaresupport local plugin
